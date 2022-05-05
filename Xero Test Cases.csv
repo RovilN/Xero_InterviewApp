@@ -1,0 +1,19 @@
+﻿S.No,Test Scenario's
+1,Verify user with valid roles should be able to  send the record successfully to customer email.
+2,Verify customer should be able to Accept the Quote and Quote form should get updated with the Status as Accepted.
+3,Verify customer should be able to Decline the Quote  and sent the additional comments and Quote form should get updated with the Status as Declined.
+4,Verify the Total Amount  Calculation in case  of  Amount are Tax  Exclusive.
+5,Verify the Amount in USD and Total Amount in case of discount % is added and amounts are tax inclusive.
+6,Verify in case quote is created for past date by User. Customer should get Quote expired message on opening quote link  from email and customer should not be Accept or Decline the quote.
+7,Verify users with valid roles should be able to mark the quote as accepted or declined from the quotes form.
+,
+,
+,Additional Scenario's
+8,Verify user should get error message if user tries to Send or Save the record without entering Customer(mandatory field)
+9,"Verify in case Quote in Open in multiple browser tab and user update the quote in one tab and then try to save the quote in another tab, User should get notification for quote update and refersing the form"
+10,Verify the user should be able to move to different fields using the Keyboard.
+11,Verify user should be able to search the quotes from Business Tab - Quotes grid and open the relevant quote
+12,Verify user should be able to create new quote using Save and Another quote.
+13,Verify audit history should display the record action with correct owner of the action.
+14,Verify user be able to upload or add the  files  with maxium of 16 MB
+15,Verify users with readonly roles should not be able to edit or update the quotes form
