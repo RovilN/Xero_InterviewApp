@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools;
@@ -23,6 +25,8 @@ namespace Xero_InterviewApp.Commonlibrary
         public static string url;
         //Initialization
         public static string _uri;
+        //Test Environment
+        static public string _keyVault;
 
         public static TestContext testContextInstance;
         public TestContext TestContext
@@ -39,20 +43,38 @@ namespace Xero_InterviewApp.Commonlibrary
             screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
         }
 
+  
+
+
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
             testContextInstance = context;
             //For Test Users
+            _password = testContextInstance.Properties["password"].ToString();
 
             //InCase user wants to use Add the run settings file. Open the visual studio->Select the test tab and Configure run settings before using it.
-                _username = testContextInstance.Properties["username"].ToString();
+            _password = GetSecret(_password);
+            _username = testContextInstance.Properties["username"].ToString();
                 _password = testContextInstance.Properties["password"].ToString();
                 _uri = testContextInstance.Properties["url"].ToString();
+             _keyVault = testContextInstance.Properties["keyVaultUri"].ToString();
+
+
             //_username = "rovil.nigam@gmail.com";
             //_password = "Nashville@1987";
             //_uri = "https://login.xero.com/identity/user/login";
 
+        }
+
+        private static string GetSecret(string secretName)
+        {
+            var client = new SecretClient(new Uri("https://xerovaulttechchallenge.vault.azure.net/"), new DefaultAzureCredential());
+            KeyVaultSecret secret = client.GetSecret(secretName);
+
+            if (secret.Value == null)
+                throw new NullReferenceException("Not able to retrieve secret from Key Vault");
+            return secret.Value;
         }
 
         [AssemblyCleanup]
