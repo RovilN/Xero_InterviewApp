@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Xero_InterviewApp.Commonlibrary
@@ -31,6 +32,12 @@ namespace Xero_InterviewApp.Commonlibrary
         }
 
 
+        public static void TakeScreenshot(string fileName, ScreenshotImageFormat imageFormat )
+        {
+            ITakesScreenshot screenshotDriver = _driver as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+        }
 
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
@@ -39,12 +46,12 @@ namespace Xero_InterviewApp.Commonlibrary
             //For Test Users
 
             //InCase user wants to use Add the run settings file. Open the visual studio->Select the test tab and Configure run settings before using it.
-                //_username = testContextInstance.Properties["username"].ToString();
-                //_password = testContextInstance.Properties["password"].ToString();
-                //_uri = testContextInstance.Properties["url"].ToString();
-            _username = "rovil.nigam@gmail.com";
-            _password = "Nashville@1987";
-            _uri = "https://login.xero.com/identity/user/login";
+                _username = testContextInstance.Properties["username"].ToString();
+                _password = testContextInstance.Properties["password"].ToString();
+                _uri = testContextInstance.Properties["url"].ToString();
+            //_username = "rovil.nigam@gmail.com";
+            //_password = "Nashville@1987";
+            //_uri = "https://login.xero.com/identity/user/login";
 
         }
 
@@ -76,9 +83,52 @@ namespace Xero_InterviewApp.Commonlibrary
         [TestCleanup]
         public void TestCleanup()
         {
+            #region Take the Screenshot of the test before quiting the browser
+            try
+            {
+                //Check for Outcome  of the Test//
+               string status = testContextInstance.CurrentTestOutcome.ToString();
+                if (status.Equals("Failed") || status.Equals("Error"))
+                {
+                    Console.WriteLine(url);
+                    _driver.Manage().Window.Size = new Size(1920, 1080);
+                    var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
+                    string fileName = string.Format("Error_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
+                    TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
+                }
+                else if (status.Equals("Passed"))
+                {
+                    try
+                    {
+                        var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
+                        string fileName = string.Format("Success_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
+                        TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
 
-            _driver.Quit();
+
+                       
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
+                        string fileName = string.Format("SignOutError_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
+                        TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
+                    }
+              
+                }
+                _driver.Quit();
+            }
+          
+            catch (Exception e)
+            {
+                _driver.Quit();
+
+                throw new Exception("Not able to take screenshot, " + "Exception Message - " + e.Message + Environment.NewLine + "StackTrace - " + e.StackTrace.Trim());
+            }
+            #endregion
 
         }
+
+
     }
-}
+    }
