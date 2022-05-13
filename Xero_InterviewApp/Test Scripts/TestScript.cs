@@ -21,13 +21,13 @@ namespace Xero_InterviewApp.Test_Scripts
        
 
             CommonMethodLibrary.Login(_uri,_username,_password);       
-            CommonMethodLibrary.SkiptheMFA();
-            CommonMethodLibrary.NavigationArea("Business", "Quotes");
-            CommonMethodLibrary.Search(TestData.Datalibrary.Data["quoteRecord"]);
-            CommonMethodLibrary.OpenGridRecord(0);
-            CommonMethodLibrary.CreateInvoice("CreateInvoice");
-            CommonMethodLibrary.Scroll_Down_Full_Page();
-            CommonMethodLibrary.SaveTheInvoice();
+            //CommonMethodLibrary.SkiptheMFA();
+            //CommonMethodLibrary.NavigationArea("Business", "Quotes");
+            //CommonMethodLibrary.Search(TestData.Datalibrary.Data["quoteRecord"]);
+            //CommonMethodLibrary.OpenGridRecord(0);
+            //CommonMethodLibrary.CreateInvoice("CreateInvoice");
+            //CommonMethodLibrary.Scroll_Down_Full_Page();
+            //CommonMethodLibrary.SaveTheInvoice();
         }
     }
 }
