@@ -40,7 +40,7 @@ namespace Xero_InterviewApp.Commonlibrary
         {
             ITakesScreenshot screenshotDriver = _driver as ITakesScreenshot;
             Screenshot screenshot = screenshotDriver.GetScreenshot();
-            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
         }
 
   
@@ -50,20 +50,17 @@ namespace Xero_InterviewApp.Commonlibrary
         public static void AssemblyInitialize(TestContext context)
         {
             testContextInstance = context;
-            //For Test Users
-            _password = testContextInstance.Properties["password"].ToString();
 
+            //For Test Users          
             //InCase user wants to use Add the run settings file. Open the visual studio->Select the test tab and Configure run settings before using it.
-            _password = GetSecret(_password);
             _username = testContextInstance.Properties["username"].ToString();
-                _password = testContextInstance.Properties["password"].ToString();
+            _password = testContextInstance.Properties["password"].ToString();
+            _password = GetSecret(_password);
+           
+                
                 _uri = testContextInstance.Properties["url"].ToString();
              _keyVault = testContextInstance.Properties["keyVaultUri"].ToString();
 
-
-            //_username = "rovil.nigam@gmail.com";
-            //_password = "Nashville@1987";
-            //_uri = "https://login.xero.com/identity/user/login";
 
         }
 
@@ -115,16 +112,17 @@ namespace Xero_InterviewApp.Commonlibrary
                     Console.WriteLine(url);
                     _driver.Manage().Window.Size = new Size(1920, 1080);
                     var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
-                    string fileName = string.Format("Error_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
-                    TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
+                    string fileName = string.Format("Error_" + currentDateTimeAndTest + ".PNG", testContextInstance.TestResultsDirectory);
+                 
+                    TakeScreenshot(fileName,ScreenshotImageFormat.Png);
                 }
                 else if (status.Equals("Passed"))
                 {
                     try
                     {
                         var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
-                        string fileName = string.Format("Success_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
-                        TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
+                        string fileName = string.Format("Success_" + currentDateTimeAndTest + ".PNG", testContextInstance.TestResultsDirectory);
+                        TakeScreenshot(fileName, 0);
 
 
                        
@@ -133,8 +131,8 @@ namespace Xero_InterviewApp.Commonlibrary
                     {
                         Console.WriteLine(e.Message);
                         var currentDateTimeAndTest = testContextInstance.TestName + "_" + DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss");
-                        string fileName = string.Format("SignOutError_" + currentDateTimeAndTest + ".jpeg", testContextInstance.TestResultsDirectory);
-                        TakeScreenshot(fileName, ScreenshotImageFormat.Jpeg);
+                        string fileName = string.Format("SignOutError_" + currentDateTimeAndTest + ".PNG", testContextInstance.TestResultsDirectory);
+                        TakeScreenshot(fileName, ScreenshotImageFormat.Png);
                     }
               
                 }

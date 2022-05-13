@@ -3,21 +3,6 @@
   <!-- Configurations that affect the Test Framework -->
   <RunConfiguration>
     <MaxCpuCount>1</MaxCpuCount>
-    <!-- Path relative to solution directory -->
-    <!--<ResultsDirectory>..\TestResults</ResultsDirectory>-->
-
-    <!-- [x86] | x64    
-      - You can also change it from menu Test, Test Settings, Default Processor Architecture -->
-    <!--
-		<TargetPlatform>x64</TargetPlatform>
-
-		-->
-    <!-- Framework35 | [Framework40] | Framework45 -->
-    <!--
-		<TargetFrameworkVersion>Framework45</TargetFrameworkVersion>-->
-
-    <!-- Path to Test Adapters -->
-    <!--<TestAdaptersPaths>%SystemDrive%\Temp\foo;%SystemDrive%\Temp\bar</TestAdaptersPaths>-->
   </RunConfiguration>
 
   <!-- Configurations for data collectors -->
@@ -50,30 +35,12 @@
   </DataCollectionRunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
-    <Parameter name="UsePrivateMode" value="true" />
-
     <!--Environment-->
     <Parameter name="url" value="https://login.xero.com/identity/user/login" />
     <Parameter name="keyVaultUri" value="https://xerovaulttechchallenge.vault.azure.net/" />
-
-
     <!--Usernames and Passwords For Xero Tech challenge-->
     <Parameter name="username" value="rovil.nigam@gmail.com" />
     <Parameter name="password" value="password" />
     <!--Parameter name="ADO-Token" value="Automation-LocalAgency-Password" /-->
   </TestRunParameters>
-  <!-- Adapter Specific sections -->
-
-  <!-- MSTest adapter -->
-  <!--
-  <MSTest>
-    <MapInconclusiveToFailed>True</MapInconclusiveToFailed>
-    <CaptureTraceOutput>false</CaptureTraceOutput>
-    <DeleteDeploymentDirectoryAfterTestRunIsComplete>False</DeleteDeploymentDirectoryAfterTestRunIsComplete>
-    <DeploymentEnabled>False</DeploymentEnabled>
-    <AssemblyResolution>
-      <Directory path="D:\myfolder\bin\" includeSubDirectories="false"/>
-    </AssemblyResolution>
-  </MSTest>
-  -->
 </RunSettings>
