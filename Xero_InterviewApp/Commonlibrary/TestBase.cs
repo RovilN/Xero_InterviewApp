@@ -67,7 +67,7 @@ namespace Xero_InterviewApp.Commonlibrary
 
         private static string GetSecret(string secretName)
         {
-            var client = new SecretClient(new Uri("https://xerovaulttechchallenge.vault.azure.net/"), new DefaultAzureCredential());
+            var client = new SecretClient(new Uri(_keyVault), new DefaultAzureCredential());
             KeyVaultSecret secret = client.GetSecret(secretName);
 
             if (secret.Value == null)
