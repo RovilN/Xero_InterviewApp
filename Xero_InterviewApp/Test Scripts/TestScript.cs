@@ -17,8 +17,10 @@ namespace Xero_InterviewApp.Test_Scripts
         {
             /// This test will login to the Application and Search for Accepted Quotes
             /// It will open the accepted Quotes and Create draft invoices. 
-            /// and check the status of the invoices is set to draft                          
-            CommonMethodLibrary.Login(_uri,_username,_password);
+            /// and check the status of the invoices is set to draft       
+       
+
+            CommonMethodLibrary.Login(_uri,_username,_password);       
             CommonMethodLibrary.SkiptheMFA();
             CommonMethodLibrary.NavigationArea("Business", "Quotes");
             CommonMethodLibrary.Search(TestData.Datalibrary.Data["quoteRecord"]);
