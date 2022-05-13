@@ -41,6 +41,7 @@ namespace Xero_InterviewApp.Commonlibrary
             ITakesScreenshot screenshotDriver = _driver as ITakesScreenshot;
             Screenshot screenshot = screenshotDriver.GetScreenshot();
             screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+
         }
 
   
