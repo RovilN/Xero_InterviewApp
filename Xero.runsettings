@@ -37,7 +37,7 @@
   <TestRunParameters>
     <!--Environment-->
     <Parameter name="url" value="https://login.xero.com/identity/user/login" />
-    <Parameter name="keyVaultUri" value="https://xerovaulttechchallenge.vault.azure.net/" />
+    <Parameter name="keyVaultUri" value="https://xerotechchallenge.vault.azure.net/" />
     <!--Usernames and Passwords For Xero Tech challenge-->
     <Parameter name="username" value="rovil.nigam@gmail.com" />
     <Parameter name="password" value="password" />
