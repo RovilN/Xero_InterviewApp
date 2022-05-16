@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -14,10 +15,9 @@ namespace Xero_InterviewApp.Commonlibrary
 
 
         public static void Login(string url,string username,string password)
-        {
-            ///Login to Xero Application///
+        {        
 
-            #region
+            #region Login to Xero Application
     
                   
             _driver.Navigate().GoToUrl(url);
@@ -39,24 +39,31 @@ namespace Xero_InterviewApp.Commonlibrary
                      Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(TestData.StaticObjectlibrary.Object["login"]))).Click();
          
             var actualUrl = _driver.Url;
+          
 
 
-            Assert.IsTrue(true, "Marking the test cases pass just for testing purpose");
+                Assert.IsTrue(true, "Marking the test cases pass just for testing purpose");
             //Assert.AreEqual("https://go.xero.com/app/!Bytq5/dashboard", actualUrl, "Unable to get login to Application");
 
           
             #endregion
         }
 
+
+        public static void WaitForPagetoLoad()
+        {
+            #region Wait until Page load Completes
+
+            new WebDriverWait(_driver, TimeSpan.FromSeconds(30)).
+               Until(_waitforPagetoload=>((IJavaScriptExecutor)_driver).ExecuteScript("return document.readyState").Equals("complete"));
+           
+            #endregion 
+        }
         public static void SelectOrganization(string organizationName)
         {
-            ///Select the Organization///
+      
+            #region Select the Organization
 
-            #region
-
-
-            //new WebDriverWait(_driver, new TimeSpan(0, 0, 30)).
-            //         Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(""))).Click();
 
             var actualUrl = _driver.Url;
 
@@ -67,17 +74,17 @@ namespace Xero_InterviewApp.Commonlibrary
 
         public static void SkiptheMFA()
         {
-        
+            #region Skip the Multi Factor Authentication
             new WebDriverWait(_driver, new TimeSpan(0, 0, 30)).
                      Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//button[@data-automationid='mfa-notnow']"))).Click();
-            Thread.Sleep(5000);
+                
+            #endregion 
         }
 
         public static void NavigationArea(string area, string subarea)
         {
-            ///Select the Navigation and Sub Navigation Area///
-
-            #region
+          
+            #region Select the Navigation and Sub Navigation Area
 
             try
             {
@@ -103,9 +110,9 @@ namespace Xero_InterviewApp.Commonlibrary
         }
         public static void Search(string searchtext)
         {
-            ///Search the Record in the grid and Open the record///
+          
 
-            #region
+            #region Search the Record in the grid and Open the record
 
             try
             {
@@ -135,7 +142,8 @@ namespace Xero_InterviewApp.Commonlibrary
 
         public static void OpenGridRecord(int index)
         {
-            /// Open the record///
+       
+            #region Open the Grid Record
             try
             {
 
@@ -151,12 +159,13 @@ namespace Xero_InterviewApp.Commonlibrary
             {
                 Assert.Fail("Unable to Open  the grid Record");
             }
-
+            #endregion
         }
 
         public static void CreateInvoice(string buttonName)
         {
-            /// Check whether user is able to create the invoice or not.
+       
+            #region Check whether user is able to create the invoice or not
             try
 
             {
@@ -175,17 +184,22 @@ namespace Xero_InterviewApp.Commonlibrary
             {
                 Assert.Fail("Unable to Open  the grid Record");
             }
-
+            #endregion
         }
 
         public static void Scroll_Down_Full_Page()
         {
+            #region Scroll down till botton of the page
+
             IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
             js.ExecuteScript("window.scrollBy(0,350)", "");
+           
+            #endregion
         }
 
         public static void SaveTheInvoice()
         {
+            #region Save the Invoice Record
             Thread.Sleep(2000);
             _driver.FindElement(By.XPath("//a[@title='Save as draft']")).Click();
             Thread.Sleep(5000);
@@ -196,10 +210,11 @@ namespace Xero_InterviewApp.Commonlibrary
                 Assert.IsTrue(true, "Invoice is not in draft status"); /// Check whether invoice is not draft status or not.
             }
 
+            #endregion
         }
 
 
-       
+
     }
 }
 
